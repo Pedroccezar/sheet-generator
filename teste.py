@@ -1,20 +1,13 @@
-segunda = {'Bruno': 1, 'pedro': 0, 'Luiz': 0}
-plant_seg = []
+import pandas as pd
 
-for i in segunda:
-    if segunda[i] == 1:
-        plant_seg.append(i)
+url = 'https://docs.google.com/spreadsheets/d/17p7v_DldO4hYvko52K_RLS-a9RCNEKuxsMbic--qx2g/export?format=csv'
+planilha = pd.read_csv(url)
 
-print(plant_seg)
-
-#### NOVA SEMANA ####
-
-terca = {'Bruno': 0, 'pedro': 1, 'Luiz': 1}
-plant_terca = []
-
-for j in terca:
-    if j in plant_seg and terca[j] == 1:
-        plant_terca.append(j)
+seg = []
 
 
-print(plant_terca)
+
+for i in planilha.itertuples():
+    if i.segunda == True:
+        seg.append(i.membros)
+        print(i)
