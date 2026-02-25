@@ -1,5 +1,21 @@
 import pandas as pd
 import numpy as np
+from gspread_dataframe import set_with_dataframe
+import gspread
+from google.oauth2.service_account import Credentials
+
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
+creds = Credentials.from_service_account_file(
+    "credencial.json",
+    scopes=scope
+)
+
+client = gspread.authorize(creds)
+sheet = client.open_by_key("15SpGslotuwfz7Fzc6eSFAw690tEsepahhj9vq-3yHw8").sheet1
 
 url = 'https://docs.google.com/spreadsheets/d/17p7v_DldO4hYvko52K_RLS-a9RCNEKuxsMbic--qx2g/export?format=csv'
 planilha = pd.read_csv(url)
@@ -22,11 +38,11 @@ for i in planilha.itertuples():
         qua.append(i.membros)
         plantao.append(i.membros)
         
-    elif i.terca and not i.membros in plantao:
+    elif i.quinta and not i.membros in plantao:
         qui.append(i.membros)
         plantao.append(i.membros)
         
-    elif i.terca and not i.membros in plantao:
+    elif i.sexta and not i.membros in plantao:
         sex.append(i.membros)
         plantao.append(i.membros)
         
@@ -40,10 +56,6 @@ planilha_def = pd.DataFrame({
     'Sexta': pd.Series(sex)
 })
 
-planilha_def['Segunda'] = np.where(planilha_def['Segunda'].isna(),'',planilha_def['Segunda'])
-planilha_def['Terça'] = np.where(planilha_def['Terça'].isna(),'',planilha_def['Terça'])
-planilha_def['Quarta'] = np.where(planilha_def['Quarta'].isna(),'',planilha_def['Quarta'])
-planilha_def['Quinta'] = np.where(planilha_def['Quinta'].isna(),'',planilha_def['Quinta'])
-planilha_def['Sexta'] = np.where(planilha_def['Sexta'].isna(),'',planilha_def['Sexta'])
-
+planilha_def = planilha_def.fillna('')
+set_with_dataframe(sheet, planilha_def)
 planilha_def.head(10)
