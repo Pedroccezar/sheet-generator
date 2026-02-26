@@ -29,7 +29,7 @@ cd seu-repositorio
 Instale as dependências:
 
 ```bash
-pip install pandas numpy gspread gspread-dataframe google-auth
+pip install -r requirements.txt
 ```
 
 
