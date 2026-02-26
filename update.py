@@ -68,6 +68,7 @@ df_final = pd.DataFrame({
     'Sexta':   pd.Series(novas_listas['sexta'])
 }).fillna('')
 
+sheet.batch_clear(["A:Z"])
 set_with_dataframe(sheet, df_final)
 print("Planilha atualizada!")
 
