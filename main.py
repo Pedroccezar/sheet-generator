@@ -25,25 +25,31 @@ planilha_def = pd.read_csv(plantaourl)
 seg, ter, qua, qui, sex, plantao = ['Bruno'], ['Luiz'], ['Miguel'], ['Anna Carolina'], ['Nathan'], [] #Se precisar fixar plantão...
 
 for i in planilha.itertuples():
-    if i.segunda:
-        seg.append(i.membros)
-        plantao.append(i.membros)
-        
-    if i.terca and not i.membros in plantao:
-        ter.append(i.membros)
-        plantao.append(i.membros)
-    
-    if i.quarta and not i.membros in plantao:
-        qua.append(i.membros)
-        plantao.append(i.membros)
-        
-    if i.quinta and not i.membros in plantao:
-        qui.append(i.membros)
-        plantao.append(i.membros)
-        
-    if i.sexta and not i.membros in plantao:
-        sex.append(i.membros)
-        plantao.append(i.membros)
+
+    if i.membros not in plantao:
+
+        menor = min(len(seg), len(ter), len(qua), len(qui), len(sex))
+
+        if i.segunda and len(seg) == menor:
+            seg.append(i.membros)
+            plantao.append(i.membros)
+
+        elif i.terca and len(ter) == menor:
+            ter.append(i.membros)
+            plantao.append(i.membros)
+
+        elif i.quarta and len(qua) == menor:
+            qua.append(i.membros)
+            plantao.append(i.membros)
+
+        elif i.quinta and len(qui) == menor:
+            qui.append(i.membros)
+            plantao.append(i.membros)
+
+        elif i.sexta and len(sex) == menor:
+            sex.append(i.membros)
+            plantao.append(i.membros)
+
 
 planilha_def = pd.DataFrame({
     'Segunda': pd.Series(seg),
