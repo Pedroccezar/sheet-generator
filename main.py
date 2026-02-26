@@ -44,8 +44,6 @@ for i in planilha.itertuples():
     if i.sexta and not i.membros in plantao:
         sex.append(i.membros)
         plantao.append(i.membros)
-        
-print(f'segunda:{seg}, terca: {ter}, quarta: {qua}, quinta: {qui}, sexta: {sex}')
 
 planilha_def = pd.DataFrame({
     'Segunda': pd.Series(seg),
@@ -57,5 +55,5 @@ planilha_def = pd.DataFrame({
 
 planilha_def = planilha_def.fillna('')
 set_with_dataframe(sheet, planilha_def)
+print("Planilha Feita!")
 
-planilha_def.head(10)
